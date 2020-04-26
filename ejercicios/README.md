@@ -9,7 +9,9 @@
 1. Consulte el uso de la función ```gettimeofday``` para medir el tiempo de ejecución de un programa
    * ¿Cómo se utiliza esta función (muestre un ejemplo)? 
 ```
-Se utiliza para medir de forma precisa el tiempo que tarda en ejecutarse cierta operación,, que  se encuentra en la librería "sys/time.h". Esta función ofrece teóricamente una precisión de microsegundos (0,001 milisegundos). Su sintaxis es la siguiente:
+Se utiliza para medir de forma precisa el tiempo que tarda en ejecutarse cierta operación,
+que  se encuentra en la librería "sys/time.h". Esta función ofrece teóricamente una precisión de
+ microsegundos (0,001 milisegundos). Su sintaxis es la siguiente:
 
 int gettimeofday (struct timeval *tp, NULL);
 
