@@ -17,21 +17,10 @@ int gettimeofday (struct timeval *tp, NULL);
 
 Siendo timeval un registro con 2 campos: int tv_sec, int tv_usec, que indican los segundos y microsegundos, respectivamente.
 
-#include <stdio.h>
-#include <sys/time.h>
-int main(void)
-{
-    struct timeval ti, tf;
-    double tiempo;
-    gettimeofday(&ti, NULL);   // Instante inicial
-    printf("Lee este mensaje y pulsa ENTER\n");
-    getchar();
-    gettimeofday(&tf, NULL);   // Instante final
-    tiempo= (tf.tv_sec - ti.tv_sec)*1000 + (tf.tv_usec - ti.tv_usec)/1000.0;
-    printf("Has tardado: %g milisegundos\n", tiempo);
-}
+
 
 ```
+![alt tag](https://github.com/pabloromero0428/sincronizacion/blob/master/PARTE%201%20Soluci%C3%B3n/P1/Punto1.png)
 
    * ¿Cuál es el intervalo de tiempo más corto que se puede medir con esta función?
    
@@ -39,6 +28,9 @@ int main(void)
 EL intervalo más corto que se puede medir es: 1 Microsegundo.
 ```
 2. Consulte cuantas CPUs hay disponibles en el sistema que usted está utilizando. (Pista use el comando lscpu)
+
+![alt tag](https://github.com/pabloromero0428/sincronizacion/blob/master/PARTE%201%20Soluci%C3%B3n/P2/Cpus.png)
+
 2. Desarrolle un programa que utilice un contador concurrente simple. Mida cuánto tiempo lleva incrementar el contador muchas veces a medida que aumenta el número de hilos (1, 2, 4, 8 y 16). Para tal fin, siga las instrucciones que aparecen en el directorio [preciso](./preciso). Una vez complete los pasos continue con el tercer punto.
 3. Desarrolle una versión del contador aproximado (*sloppy counter*) y mida su desempeño a medida que se varía el número de hilos. En este caso, solo maneje un umbral de S = 1024 variando el número de hilos (1, 2, 4, 8 y 16). Las intrucciones para ello se encuentran en el directorio [aproximado](./aproximado).
 4. Grafique los resultados obtenidos de las pruebas recopiladas (en las tablas) para el **número de hilos .vs. el tiempo (en segundos)**, estas siguen la tendencia de la figura **29.5** del libro (la cual se muestra a continuación):
