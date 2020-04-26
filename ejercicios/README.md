@@ -8,7 +8,36 @@
 
 1. Consulte el uso de la función ```gettimeofday``` para medir el tiempo de ejecución de un programa
    * ¿Cómo se utiliza esta función (muestre un ejemplo)? 
+```
+Se utiliza para medir de forma precisa el tiempo que tarda en ejecutarse cierta operación,
+que  se encuentra en la librería "sys/time.h". Esta función ofrece teóricamente una precisión de
+ microsegundos (0,001 milisegundos). Su sintaxis es la siguiente:
+
+int gettimeofday (struct timeval *tp, NULL);
+
+Siendo timeval un registro con 2 campos: int tv_sec, int tv_usec, que indican los segundos y microsegundos, respectivamente.
+
+#include <stdio.h>
+#include <sys/time.h>
+int main(void)
+{
+    struct timeval ti, tf;
+    double tiempo;
+    gettimeofday(&ti, NULL);   // Instante inicial
+    printf("Lee este mensaje y pulsa ENTER\n");
+    getchar();
+    gettimeofday(&tf, NULL);   // Instante final
+    tiempo= (tf.tv_sec - ti.tv_sec)*1000 + (tf.tv_usec - ti.tv_usec)/1000.0;
+    printf("Has tardado: %g milisegundos\n", tiempo);
+}
+
+```
+
    * ¿Cuál es el intervalo de tiempo más corto que se puede medir con esta función?
+   
+```
+EL intervalo más corto que se puede medir es: 1 Microsegundo.
+```
 2. Consulte cuantas CPUs hay disponibles en el sistema que usted está utilizando. (Pista use el comando lscpu)
 2. Desarrolle un programa que utilice un contador concurrente simple. Mida cuánto tiempo lleva incrementar el contador muchas veces a medida que aumenta el número de hilos (1, 2, 4, 8 y 16). Para tal fin, siga las instrucciones que aparecen en el directorio [preciso](./preciso). Una vez complete los pasos continue con el tercer punto.
 3. Desarrolle una versión del contador aproximado (*sloppy counter*) y mida su desempeño a medida que se varía el número de hilos. En este caso, solo maneje un umbral de S = 1024 variando el número de hilos (1, 2, 4, 8 y 16). Las intrucciones para ello se encuentran en el directorio [aproximado](./aproximado).
