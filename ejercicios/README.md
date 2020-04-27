@@ -41,14 +41,16 @@ EL intervalo más corto que se puede medir es: 1 Microsegundo.
    * ¿Los valores que usted obtuvo siguen una tendencia como la que se muestra en el texto guía (mostrada anteriormente)?
 
 ```
-Con respecto al contador preciso los valores de arrojados no se asemejan debido a que es secuencial por ende entre mas hilos tenga para llegar al valor maximo del contador va disminuir considerablemente 
+Con respecto al contador preciso los valores de arrojados no se asemejan debido a que es secuencial por ende 
+entre mas hilos tenga para llegar al valor maximo del contador va disminuir considerablemente 
 ```
 
 ![alt tag](https://github.com/pabloromero0428/sincronizacion/blob/master/PARTE%201%20Soluci%C3%B3n/P5/Contadorpreciso.png)
    
 ```
-Pero en el contador aproximado se nota que aunque no se comporta totalmente a la figura 29.5 hay una pequeña similitud en que
- los datos aumenta todo esto se debe al humbra con el cual se ejecuta el codigo ademas de la cantidad de hilos.
+Pero en el contador aproximado se nota que aunque no se comporta totalmente a la figura 29.5 hay una pequeña
+ similitud en que  los datos aumenta todo esto se debe al humbra con el cual se ejecuta el codigo ademas
+ de la cantidad de hilos.
 ```
 ![alt tag](https://github.com/pabloromero0428/sincronizacion/blob/master/PARTE%201%20Soluci%C3%B3n/P5/Aproximado.png)
   
@@ -62,9 +64,9 @@ Pero en el contador aproximado se nota que aunque no se comporta totalmente a la
    * ¿Este número afecta de alguna manera sus mediciones?
    
   ```
-   De alguna manera el número de CPUs afecta las mediciones pues dependiendo a estas encontonces podriamos obtener mejores o 
-menores tiempos y aunque el libro guia lo manejar de forma muy similar, las condiciones de la maquina y otros factores pueden 
-no dar los datos como para hacer una comparacion muy especifica y detallada de lo que pasa
+   De alguna manera el número de CPUs afecta las mediciones pues dependiendo a estas encontonces podriamos obtener 
+mejores o menores tiempos y aunque el libro guia lo manejar de forma muy similar, las condiciones de la maquina
+y otros factores pueden no dar los datos como para hacer una comparacion muy especifica y detallada de lo que pasa
    ```
 
 6. Mejore el archivo [test_aproximate_mejorado_counter.c](./aproximado_mejorado/test_aproximate_mejorado_counter.c) (el cual se encuentra en el directorio [aproximado_mejorado](./aproximado_mejorado)) de tal modo que, además de permitir modificar el numero de hilos y el valor máximo del contador a emplear, permita modificar también el umbral o factor de apromación (S), para esto se puede basar en el ejercicio 3. De este modo los parametros serán:
@@ -87,7 +89,7 @@ Luego, ejecute varias veces la aplicación dejando constante el valor máximo de
 ![alt tag](https://github.com/pabloromero0428/sincronizacion/blob/master/PARTE%201%20Soluci%C3%B3n/P6/aproximadomejorado.png)
 
 ```
-Como se muestra en la figura anterior respecto a los datos que el algoritmo arroja la tendencia es muy similar a la de la 
-figura 29.6 pero el ultimo dato que es arrojado se sale de la tendencia. 
+Como se muestra en la figura anterior respecto a los datos que el algoritmo arroja la tendencia es muy 
+similar a la de la figura 29.6 pero el ultimo dato que es arrojado se sale de la tendencia. 
 
 ```
