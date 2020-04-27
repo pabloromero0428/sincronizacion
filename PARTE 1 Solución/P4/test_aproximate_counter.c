@@ -4,6 +4,7 @@
 #include <sys/time.h>
 #include "counter.h"
 
+#define THRESHOLD 1024
 
 /* structs */
 void* contador(void *);
@@ -16,7 +17,6 @@ int NUMTHREADS;
 
 /* Global variables */
 pthread_mutex_t lock; 
-
 
 int main(int argc, char *argv[]) { 
 
@@ -32,7 +32,7 @@ int main(int argc, char *argv[]) {
 
 
     /* Initializing conter */
-    init(&counter);
+    init(&counter, THRESHOLD);
 
 
     /* Threads handlers */
@@ -44,12 +44,13 @@ int main(int argc, char *argv[]) {
 
 
     /* Creating a Threads */
+    
     for(int i = 0; i < NUMTHREADS; i++){
-       pthread_create(&thr[i], NULL, &contador,NULL);
+       pthread_create(&thr[i], NULL, &contador,& MAXCNT);
     }
    
 
-    /* Threads joins */
+    /* Threads joins */   
     for (int i = 0; i < NUMTHREADS; i++){
         pthread_join(thr[i],NULL);
     }
@@ -72,17 +73,22 @@ int main(int argc, char *argv[]) {
 
 
     return 0;
+
 }
 
 /* start_routine definition */
-void* contador( void* unused ){
-    pthread_mutex_lock(&lock);
+void* contador( void* arg ){
+    pthread_mutex_lock(&lock);  
     int contador_concurente = get(&counter);
-    if(contador_concurente < MAXCNT){
+    if(contador_concurente+1024 < MAXCNT){
        for(int i = 0; i < MAXCNT; i++) {
-            increment(&counter);
+            update(&counter,(int)pthread_self(),1);
         }
     }
     pthread_mutex_unlock(&lock);
     return 0;
 }
+
+
+
+

@@ -5,6 +5,7 @@
 #include "counter.h"
 
 
+
 /* structs */
 void* contador(void *);
 
@@ -13,10 +14,10 @@ void* contador(void *);
 counter_t counter;
 int MAXCNT;
 int NUMTHREADS;
+int THRESHOLD;
 
 /* Global variables */
 pthread_mutex_t lock; 
-
 
 int main(int argc, char *argv[]) { 
 
@@ -24,7 +25,7 @@ int main(int argc, char *argv[]) {
     pthread_mutex_init(&lock, NULL);
     MAXCNT = atoi(argv[1]);
     NUMTHREADS = atoi(argv[2]);
-
+    THRESHOLD = atoi(argv[3]);
 
     /* Declaration of struct timeval variables */
     struct timeval tinicial, tfinal;
@@ -32,7 +33,7 @@ int main(int argc, char *argv[]) {
 
 
     /* Initializing conter */
-    init(&counter);
+    init(&counter, THRESHOLD);
 
 
     /* Threads handlers */
@@ -44,12 +45,13 @@ int main(int argc, char *argv[]) {
 
 
     /* Creating a Threads */
+    
     for(int i = 0; i < NUMTHREADS; i++){
-       pthread_create(&thr[i], NULL, &contador,NULL);
+       pthread_create(&thr[i], NULL, &contador,& MAXCNT);
     }
    
 
-    /* Threads joins */
+    /* Threads joins */   
     for (int i = 0; i < NUMTHREADS; i++){
         pthread_join(thr[i],NULL);
     }
@@ -72,17 +74,22 @@ int main(int argc, char *argv[]) {
 
 
     return 0;
+
 }
 
 /* start_routine definition */
-void* contador( void* unused ){
-    pthread_mutex_lock(&lock);
+void* contador( void* arg ){
+    pthread_mutex_lock(&lock);  
     int contador_concurente = get(&counter);
-    if(contador_concurente < MAXCNT){
+    if(contador_concurente+1024 < MAXCNT){
        for(int i = 0; i < MAXCNT; i++) {
-            increment(&counter);
+            update(&counter,(int)pthread_self(),1);
         }
     }
     pthread_mutex_unlock(&lock);
     return 0;
 }
+
+
+
+
