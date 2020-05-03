@@ -13,6 +13,7 @@ void* contador(void *);
 counter_t counter;
 int MAXCNT;
 int NUMTHREADS;
+int numxThread ;
 
 /* Global variables */
 pthread_mutex_t lock; 
@@ -38,20 +39,23 @@ int main(int argc, char *argv[]) {
     /* Threads handlers */
     pthread_t thr[NUMTHREADS];
 
+/* Thread creation */
+    numxThread = MAXCNT/NUMTHREADS;
+
 
     /* Time starts counting */
     gettimeofday(&tinicial, NULL);
 
 
     /* Creating a Threads */
-    for(int i = 0; i < NUMTHREADS; i++){
-       pthread_create(&thr[i], NULL, &contador,NULL);
+    for(int i = 0; i <= NUMTHREADS; i++){
+       pthread_create(&thr[i], NULL, &contador, &i );
     }
    
 
     /* Threads joins */
-    for (int i = 0; i < NUMTHREADS; i++){
-        pthread_join(thr[i],NULL);
+    for (int i = 0; i <= NUMTHREADS; i++){
+        pthread_join(thr[i], NULL);
     }
 
 
@@ -79,9 +83,10 @@ void* contador( void* unused ){
     pthread_mutex_lock(&lock);
     int contador_concurente = get(&counter);
     if(contador_concurente < MAXCNT){
-       for(int i = 0; i < MAXCNT; i++) {
+       for(int i = 0; i < numxThread ; i++) {
             increment(&counter);
-        }
+       }
+         
     }
     pthread_mutex_unlock(&lock);
     return 0;

@@ -15,6 +15,7 @@ counter_t counter;
 int MAXCNT;
 int NUMTHREADS;
 int THRESHOLD;
+int numxThread ;
 
 /* Global variables */
 pthread_mutex_t lock; 
@@ -38,6 +39,9 @@ int main(int argc, char *argv[]) {
 
     /* Threads handlers */
     pthread_t thr[NUMTHREADS];
+
+    /* Thread creation */
+    numxThread = MAXCNT/NUMTHREADS;
 
 
     /* Time starts counting */
@@ -81,8 +85,8 @@ int main(int argc, char *argv[]) {
 void* contador( void* arg ){
     pthread_mutex_lock(&lock);  
     int contador_concurente = get(&counter);
-    if(contador_concurente+1024 < MAXCNT){
-       for(int i = 0; i < MAXCNT; i++) {
+    if(contador_concurente < MAXCNT){
+       for(int i = 0; i < numxThread; i++) {
             update(&counter,(int)pthread_self(),1);
         }
     }
